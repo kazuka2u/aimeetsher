@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Focus Shuffle</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+
+  <!-- background ambient particles -->
+  <div class="particles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- 1. Landing -->
+  <section class="screen active" data-screen="landing">
+    <div class="flow-panel center-col">
+      <div class="orb-wrap">
+        <div class="orb" id="mainOrb"></div>
+      </div>
+      <h1 class="hero-title">Focus Shuffle</h1>
+      <p class="subtitle">Change your state.<br/>Recover your flow.</p>
+      <button class="primary-button big" data-next="stuck">I'm stuck</button>
+      <p class="footnote">For remote workers who do not need another task manager.</p>
+    </div>
+  </section>
+
+  <!-- 2. Stuck type check-in -->
+  <section class="screen" data-screen="stuck">
+    <div class="flow-panel center-col">
+      <h2 class="step-title">What kind of stuck is this?</h2>
+      <div class="card-grid" data-group="stuckType">
+        <button class="choice-card" data-value="distracted">Distracted</button>
+        <button class="choice-card" data-value="sleepy">Sleepy</button>
+        <button class="choice-card" data-value="overwhelmed">Overwhelmed</button>
+        <button class="choice-card" data-value="isolated">Isolated</button>
+        <button class="choice-card" data-value="restless">Restless</button>
+        <button class="choice-card" data-value="bored">Bored</button>
+        <button class="choice-card" data-value="task unclear">Task unclear</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Task type check-in -->
+  <section class="screen" data-screen="task">
+    <div class="flow-panel center-col">
+      <h2 class="step-title">What are you trying to move forward?</h2>
+      <div class="card-grid" data-group="taskType">
+        <button class="choice-card" data-value="deep work">Deep work</button>
+        <button class="choice-card" data-value="creative work">Creative work</button>
+        <button class="choice-card" data-value="admin task">Admin task</button>
+        <button class="choice-card" data-value="meeting prep">Meeting prep</button>
+        <button class="choice-card" data-value="learning">Learning</button>
+        <button class="choice-card" data-value="communication">Communication</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Mood check-in -->
+  <section class="screen" data-screen="mood">
+    <div class="flow-panel center-col">
+      <h2 class="step-title">What is the current texture of your mind?</h2>
+      <div class="mood-grid" data-group="mood">
+        <button class="mood-orb" data-value="calm"><span class="dot mood-calm"></span>Calm</button>
+        <button class="mood-orb" data-value="tense"><span class="dot mood-tense"></span>Tense</button>
+        <button class="mood-orb" data-value="low energy"><span class="dot mood-low"></span>Low energy</button>
+        <button class="mood-orb" data-value="scattered"><span class="dot mood-scattered"></span>Scattered</button>
+        <button class="mood-orb" data-value="frustrated"><span class="dot mood-frustrated"></span>Frustrated</button>
+        <button class="mood-orb" data-value="numb"><span class="dot mood-numb"></span>Numb</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Factor scan -->
+  <section class="screen" data-screen="scan">
+    <div class="flow-panel center-col">
+      <div class="orb-wrap small">
+        <div class="orb scan-orb" id="scanOrb"></div>
+      </div>
+      <h2 class="step-title" id="scanTitle">Reading your work state…</h2>
+      <div class="chip-stack" id="chipStack"></div>
+      <p class="footnote" id="scanFooter" style="opacity:0;">Matching a recipe that changes your state, not your office.</p>
+    </div>
+  </section>
+
+  <!-- 6. Shuffle -->
+  <section class="screen" data-screen="shuffle">
+    <div class="flow-panel center-col">
+      <div class="orb-wrap">
+        <div class="orb shuffle-orb" id="shuffleOrb"></div>
+        <div class="shuffle-stage" id="shuffleStage"></div>
+      </div>
+      <h2 class="step-title">Shuffling focus levers…</h2>
+      <div class="lever-labels" id="leverLabels">
+        <span>Sound</span><span>Body</span><span>Place</span><span>Social</span><span>Mood</span><span>Calendar</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Recipe result -->
+  <section class="screen" data-screen="result">
+    <div class="flow-panel center-col">
+      <div class="recipe-card land" id="recipeCard">
+        <h2 class="recipe-title" id="recipeTitle"></h2>
+        <p class="recipe-subtitle" id="recipeSubtitle"></p>
+        <div class="matched-row">
+          <span class="matched-label">Matched because:</span>
+          <span class="matched-tags" id="matchedTags"></span>
+        </div>
+        <div class="recipe-time" id="recipeTime"></div>
+        <ol class="recipe-steps" id="recipeSteps"></ol>
+        <div class="recipe-actions">
+          <button class="primary-button" id="acceptBtn">Accept</button>
+          <button class="secondary-button" id="remixBtn">Remix</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Accepted session -->
+  <section class="screen" data-screen="session">
+    <div class="flow-panel center-col">
+      <div class="orb-wrap">
+        <div class="orb session-orb" id="sessionOrb"></div>
+      </div>
+      <h2 class="step-title">You are in a <span id="sessionTime"></span>-minute focus shift.</h2>
+      <p class="subtitle" id="sessionSummary"></p>
+      <div class="progress-ring-wrap">
+        <svg class="progress-ring" width="120" height="120">
+          <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+          <circle class="ring-fg" id="ringFg" cx="60" cy="60" r="52"></circle>
+        </svg>
+        <span class="ring-time" id="ringTime">0:25</span>
+      </div>
+      <button class="primary-button" id="finishBtn">Finish session</button>
+    </div>
+  </section>
+
+  <!-- 9. Feedback -->
+  <section class="screen" data-screen="feedback">
+    <div class="flow-panel center-col">
+      <h2 class="step-title">Did it change your state?</h2>
+      <div class="card-grid two-col" data-group="result">
+        <button class="choice-card" data-value="not really">Not really</button>
+        <button class="choice-card" data-value="a little">A little</button>
+        <button class="choice-card" data-value="worked">Worked</button>
+        <button class="choice-card" data-value="strong flow">Strong flow</button>
+      </div>
+      <h2 class="step-title" style="margin-top:48px;">How do you feel now?</h2>
+      <div class="mood-grid" data-group="moodAfter">
+        <button class="mood-orb" data-value="calm"><span class="dot mood-calm"></span>Calm</button>
+        <button class="mood-orb" data-value="tense"><span class="dot mood-tense"></span>Tense</button>
+        <button class="mood-orb" data-value="low energy"><span class="dot mood-low"></span>Low energy</button>
+        <button class="mood-orb" data-value="scattered"><span class="dot mood-scattered"></span>Scattered</button>
+        <button class="mood-orb" data-value="frustrated"><span class="dot mood-frustrated"></span>Frustrated</button>
+        <button class="mood-orb" data-value="numb"><span class="dot mood-numb"></span>Numb</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Learning summary -->
+  <section class="screen" data-screen="learned">
+    <div class="flow-panel center-col">
+      <div class="orb-wrap small">
+        <div class="orb" id="learnedOrb"></div>
+      </div>
+      <h2 class="step-title">Learned.</h2>
+      <p class="subtitle" id="learnedText"></p>
+      <button class="secondary-button" data-next="landing" id="restartBtn">Start over</button>
+    </div>
+  </section>
+
+</div>
+<script src="app.js"></script>
+</body>
+</html>
