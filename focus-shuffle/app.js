@@ -1,6 +1,12 @@
 (() => {
   /* ---------------- mock data ---------------- */
 
+  const deviceSignals = {
+    sourceSummary: "Phone, watch, calendar, and workspace signals are already connected.",
+    inferredTaskType: "deep work",
+    inferredMood: "scattered",
+  };
+
   const mockFactors = {
     location: "Home desk",
     health: "Mild eye strain",
@@ -10,14 +16,18 @@
     team: "3 teammates are currently in focus mode",
   };
 
-  const factorChips = [
-    { label: "Location", value: "Home desk", tag: "home desk" },
-    { label: "Sleep", value: "5.5h", tag: "low sleep" },
-    { label: "Weather", value: "Rainy", tag: "rainy" },
-    { label: "Calendar", value: "42 min gap", tag: "calendar gap over 40 minutes" },
-    { label: "Team", value: "3 people focusing", tag: "team members available" },
-    { label: "Health", value: "Eye strain", tag: "eye strain" },
-  ];
+  function factorChips() {
+    return [
+      { label: "Phone", value: mockFactors.location, tag: "home desk" },
+      { label: "Watch", value: "Sleep 5.5h", tag: "low sleep" },
+      { label: "Weather", value: "Rainy", tag: "rainy" },
+      { label: "Calendar", value: "42 min gap", tag: "calendar gap over 40 minutes" },
+      { label: "Workspace", value: "3 people focusing", tag: "team members available" },
+      { label: "Health", value: "Eye strain", tag: "eye strain" },
+      { label: "Focus app", value: "Deep work", tag: "deep work" },
+      { label: "Watch", value: "Scattered state", tag: "scattered" },
+    ];
+  }
 
   const recipes = [
     {
@@ -185,6 +195,12 @@
     setMoodTheme(null);
   }
 
+  function hydrateFromDeviceSignals() {
+    state.taskType = deviceSignals.inferredTaskType;
+    state.mood = deviceSignals.inferredMood;
+    setMoodTheme(state.mood);
+  }
+
   /* ---------------- next-button wiring ---------------- */
 
   document.querySelectorAll("[data-next]").forEach((btn) => {
@@ -202,7 +218,8 @@
 
         if (group === "stuckType") {
           state.stuckType = value;
-          setTimeout(() => goTo("task"), 320);
+          hydrateFromDeviceSignals();
+          setTimeout(() => goTo("scan"), 320);
         } else if (group === "taskType") {
           state.taskType = value;
           setTimeout(() => goTo("mood"), 320);
@@ -261,11 +278,14 @@
     const stack = document.getElementById("chipStack");
     const footer = document.getElementById("scanFooter");
     const title = document.getElementById("scanTitle");
+    const deviceCopy = document.getElementById("deviceCopy");
+    const chips = factorChips();
     stack.innerHTML = "";
     footer.style.opacity = "0";
     title.textContent = "Reading your work state…";
+    deviceCopy.textContent = deviceSignals.sourceSummary;
 
-    factorChips.forEach((f, i) => {
+    chips.forEach((f, i) => {
       const chip = document.createElement("div");
       chip.className = "chip";
       chip.innerHTML = `<span class="chip-label">${f.label}</span><span class="chip-value">${f.value}</span>`;
@@ -276,7 +296,7 @@
       setTimeout(() => chip.classList.remove("glow"), 900 + i * 220);
     });
 
-    const totalDelay = 200 + factorChips.length * 220 + 700;
+    const totalDelay = 200 + chips.length * 220 + 700;
 
     setTimeout(() => {
       title.textContent = "Matching a recipe that changes your state, not your office.";
@@ -291,7 +311,7 @@
   /* ---------------- scoring ---------------- */
 
   function getFactorTags() {
-    return factorChips.map((f) => f.tag);
+    return factorChips().map((f) => f.tag);
   }
 
   function scoreRecipe(recipe, st) {

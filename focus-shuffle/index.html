@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+<main class="device-frame" aria-label="Phone simulation">
+  <div class="device-speaker" aria-hidden="true"></div>
+  <div class="device-screen">
 <div class="app">
 
   <!-- background ambient particles -->
@@ -43,49 +46,20 @@
     </div>
   </section>
 
-  <!-- 3. Task type check-in -->
-  <section class="screen" data-screen="task">
-    <div class="flow-panel center-col">
-      <h2 class="step-title">What are you trying to move forward?</h2>
-      <div class="card-grid" data-group="taskType">
-        <button class="choice-card" data-value="deep work">Deep work</button>
-        <button class="choice-card" data-value="creative work">Creative work</button>
-        <button class="choice-card" data-value="admin task">Admin task</button>
-        <button class="choice-card" data-value="meeting prep">Meeting prep</button>
-        <button class="choice-card" data-value="learning">Learning</button>
-        <button class="choice-card" data-value="communication">Communication</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. Mood check-in -->
-  <section class="screen" data-screen="mood">
-    <div class="flow-panel center-col">
-      <h2 class="step-title">What is the current texture of your mind?</h2>
-      <div class="mood-grid" data-group="mood">
-        <button class="mood-orb" data-value="calm"><span class="dot mood-calm"></span>Calm</button>
-        <button class="mood-orb" data-value="tense"><span class="dot mood-tense"></span>Tense</button>
-        <button class="mood-orb" data-value="low energy"><span class="dot mood-low"></span>Low energy</button>
-        <button class="mood-orb" data-value="scattered"><span class="dot mood-scattered"></span>Scattered</button>
-        <button class="mood-orb" data-value="frustrated"><span class="dot mood-frustrated"></span>Frustrated</button>
-        <button class="mood-orb" data-value="numb"><span class="dot mood-numb"></span>Numb</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. Factor scan -->
+  <!-- 3. Factor scan -->
   <section class="screen" data-screen="scan">
     <div class="flow-panel center-col">
       <div class="orb-wrap small">
         <div class="orb scan-orb" id="scanOrb"></div>
       </div>
       <h2 class="step-title" id="scanTitle">Reading your work state…</h2>
+      <p class="device-copy" id="deviceCopy">Phone, watch, calendar, and workspace signals are already connected.</p>
       <div class="chip-stack" id="chipStack"></div>
       <p class="footnote" id="scanFooter" style="opacity:0;">Matching a recipe that changes your state, not your office.</p>
     </div>
   </section>
 
-  <!-- 6. Shuffle -->
+  <!-- 4. Shuffle -->
   <section class="screen" data-screen="shuffle">
     <div class="flow-panel center-col">
       <div class="orb-wrap">
@@ -99,7 +73,7 @@
     </div>
   </section>
 
-  <!-- 7. Recipe result -->
+  <!-- 5. Recipe result -->
   <section class="screen" data-screen="result">
     <div class="flow-panel center-col">
       <div class="recipe-card land" id="recipeCard">
@@ -119,7 +93,7 @@
     </div>
   </section>
 
-  <!-- 8. Accepted session -->
+  <!-- 6. Accepted session -->
   <section class="screen" data-screen="session">
     <div class="flow-panel center-col">
       <div class="orb-wrap">
@@ -138,7 +112,7 @@
     </div>
   </section>
 
-  <!-- 9. Feedback -->
+  <!-- 7. Feedback -->
   <section class="screen" data-screen="feedback">
     <div class="flow-panel center-col">
       <h2 class="step-title">Did it change your state?</h2>
@@ -160,7 +134,7 @@
     </div>
   </section>
 
-  <!-- 10. Learning summary -->
+  <!-- 8. Learning summary -->
   <section class="screen" data-screen="learned">
     <div class="flow-panel center-col">
       <div class="orb-wrap small">
@@ -173,6 +147,8 @@
   </section>
 
 </div>
+  </div>
+</main>
 <script src="app.js"></script>
 </body>
 </html>
