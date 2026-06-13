@@ -159,9 +159,9 @@ body {
 
 /* ---------- typography ---------- */
 .hero-title {
-  font-size: 48px;
+  font-size: clamp(36px, 8vw, 72px);
   line-height: 0.95;
-  letter-spacing: 0;
+  letter-spacing: -0.06em;
   font-weight: 600;
   margin: 8px 0 0;
 }
@@ -194,26 +194,26 @@ body {
 
 /* ---------- orb ---------- */
 .orb-wrap {
-  width: 174px;
-  height: 174px;
+  width: 220px;
+  height: 220px;
   display: grid;
   place-items: center;
   position: relative;
   margin-bottom: 8px;
 }
 .orb-wrap.small {
-  width: 116px;
-  height: 116px;
+  width: 140px;
+  height: 140px;
   margin-bottom: 0;
 }
 .orb-wrap.small .orb {
-  width: 116px;
-  height: 116px;
+  width: 140px;
+  height: 140px;
 }
 
 .orb {
-  width: 174px;
-  height: 174px;
+  width: 220px;
+  height: 220px;
   border-radius: 999px;
   background:
     radial-gradient(circle at 35% 30%, rgba(255,255,255,.8), transparent 12%),
@@ -255,9 +255,9 @@ body {
 .choice-card {
   border: 1px solid rgba(255,255,255,.1);
   background: rgba(255,255,255,.055);
-  border-radius: 18px;
+  border-radius: 24px;
   min-height: 74px;
-  padding: 16px 10px;
+  padding: 18px 12px;
   backdrop-filter: blur(24px);
   color: var(--text-primary);
   font-family: inherit;
@@ -294,9 +294,9 @@ body {
 .mood-orb {
   border: 1px solid rgba(255,255,255,.1);
   background: rgba(255,255,255,.055);
-  border-radius: 18px;
+  border-radius: 24px;
   min-height: 86px;
-  padding: 14px 10px;
+  padding: 16px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
