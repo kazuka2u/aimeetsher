@@ -547,14 +547,21 @@ body {
 
 /* responsive */
 @media (max-width: 480px) {
-  body { padding: 14px; }
+  body { padding: 0; }
   .device-frame {
-    width: min(390px, calc(100vw - 16px));
-    height: min(844px, calc(100vh - 16px));
-    padding: 10px;
-    border-radius: 42px;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
   }
-  .device-screen { border-radius: 32px; }
+  .device-screen { 
+    border-radius: 0; 
+    box-shadow: none; 
+  }
+  .device-speaker { 
+    display: none; 
+  }
   .screen { padding: 48px 20px 24px; }
-  .hero-title { font-size: 44px; }
 }
