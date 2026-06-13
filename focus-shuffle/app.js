@@ -431,17 +431,18 @@
 
     const timeEl = document.getElementById("ringTime");
 
-    // accelerated demo timer: 25 "minutes" -> 25 seconds
-    let remaining = minutes;
-    timeEl.textContent = `0:${String(minutes).padStart(2, "0")}`;
+    const totalSeconds = minutes * 60;
+    let remaining = totalSeconds;
+    const formatTime = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+    timeEl.textContent = formatTime(remaining);
 
     if (state.sessionTimer) clearInterval(state.sessionTimer);
     state.sessionTimer = setInterval(() => {
       remaining -= 1;
       if (remaining < 0) remaining = 0;
-      const frac = remaining / minutes;
+      const frac = remaining / totalSeconds;
       ring.style.strokeDashoffset = `${circumference * (1 - frac)}`;
-      timeEl.textContent = `0:${String(remaining).padStart(2, "0")}`;
+      timeEl.textContent = formatTime(remaining);
       if (remaining <= 0) clearInterval(state.sessionTimer);
     }, 1000);
   }
